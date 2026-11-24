@@ -261,13 +261,16 @@ $("#clearReadAlerts").addEventListener("click", () => {
 });
 $("#streamSearch").addEventListener("submit", event => {
   event.preventDefault();
-  renderStreams($("#streamQuery").value);
+  performSearch($("#streamQuery").value);
 });
 $("#dialogSearchForm").addEventListener("submit", event => {
   event.preventDefault();
   performSearch($("#dialogQuery").value, true);
 });
-$("#streamQuery").addEventListener("input", event => renderStreams(event.target.value));
+$("#streamQuery").addEventListener("input", event => {
+  const query = event.target.value.trim();
+  renderStreams(query.length < 2 ? "" : query);
+});
 $("#shareButton").addEventListener("click", async () => {
   const shareText = `${selectedStream.name} · ${statusInfo[selectedStatus].label} (화면 시안)`;
   try {
